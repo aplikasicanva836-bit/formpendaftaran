@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pendaftaran Akses Aplikasi Sekolah</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0d9488;
+    --teal-dark: #0f766e;
+    --teal-light: #ccfbf1;
+    --teal-pale: #f0fdfa;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --white: #ffffff;
+    --red: #ef4444;
+    --red-light: #fee2e2;
+    --green: #16a34a;
+    --green-light: #dcfce7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: var(--gray-50);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    background: linear-gradient(135deg, #0d9488 0%, #065f46 100%);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .topbar-icon {
+    width: 38px; height: 38px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .topbar-icon svg { width: 20px; height: 20px; color: white; }
+  .topbar-text h1 { font-size: 16px; font-weight: 700; color: white; }
+  .topbar-text p { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 1px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0d9488 0%, #065f46 100%);
+    padding: 32px 20px 64px;
+    text-align: center;
+    color: white;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    letter-spacing: 0.3px;
+  }
+  .hero-badge svg { width: 13px; height: 13px; }
+  .hero h2 { font-size: 24px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
+  .hero p { font-size: 14px; opacity: 0.8; max-width: 340px; margin: 0 auto; line-height: 1.6; }
+
+  /* CARD */
+  .card-wrap {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 16px 40px;
+    margin-top: -36px;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+    width: 100%;
+    max-width: 480px;
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 22px 24px 18px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .card-header h3 { font-size: 16px; font-weight: 700; color: var(--gray-900); }
+  .card-header p { font-size: 13px; color: var(--gray-500); margin-top: 3px; }
+  .card-body { padding: 22px 24px; }
+
+  /* STEPS */
+  .steps {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 16px; left: 16px;
+    right: 16px; height: 2px;
+    background: var(--gray-200);
+    z-index: 0;
+  }
+  .step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    z-index: 1;
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    border: 2px solid var(--gray-200);
+    background: var(--white);
+    color: var(--gray-400);
+    transition: all 0.3s;
+  }
+  .step.active .step-num {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: white;
+  }
+  .step.done .step-num {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+  .step-label { font-size: 11px; font-weight: 600; color: var(--gray-400); text-align: center; }
+  .step.active .step-label { color: var(--teal); }
+  .step.done .step-label { color: var(--green); }
+
+  /* FORM */
+  .form-section { display: none; }
+  .form-section.active { display: block; }
+
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--gray-600);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .field label span { color: var(--red); margin-left: 2px; }
+  .field input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--gray-900);
+    background: var(--gray-50);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+  .field input:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+    background: var(--white);
+  }
+  .field input.error { border-color: var(--red); background: var(--red-light); }
+  .field .helper { font-size: 12px; color: var(--gray-400); margin-top: 5px; }
+  .field .err-msg { font-size: 12px; color: var(--red); margin-top: 5px; display: none; }
+  .field input.error + .helper { display: none; }
+  .field input.error ~ .err-msg { display: block; }
+
+  /* INPUT WITH ICON */
+  .input-wrap { position: relative; }
+  .input-wrap .input-icon {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    color: var(--gray-400); pointer-events: none;
+  }
+  .input-wrap .input-icon svg { width: 16px; height: 16px; }
+  .input-wrap input { padding-left: 38px; }
+
+  /* BUTTONS */
+  .btn {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: var(--teal);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--teal-dark); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:disabled {
+    background: var(--gray-200);
+    color: var(--gray-400);
+    cursor: not-allowed;
+    transform: none;
+  }
+  .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn.loading svg { animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ALERT */
+  .alert {
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .alert svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
+  .alert-error { background: var(--red-light); color: #b91c1c; border: 1px solid #fca5a5; }
+  .alert-info { background: var(--teal-pale); color: var(--teal-dark); border: 1px solid var(--teal-light); }
+
+  /* SUCCESS */
+  .success-box {
+    text-align: center;
+    padding: 8px 0;
+  }
+  .success-circle {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--green-light);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+  }
+  .success-circle svg { width: 36px; height: 36px; color: var(--green); }
+  .success-box h3 { font-size: 18px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+  .success-box .sub { font-size: 13.5px; color: var(--gray-500); margin-bottom: 24px; line-height: 1.6; }
+  .info-card {
+    background: var(--teal-pale);
+    border: 1.5px solid var(--teal-light);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  .info-card .info-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--teal-dark);
+    margin-bottom: 8px;
+  }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--teal-light);
+    gap: 12px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .key { font-size: 12.5px; color: var(--teal-dark); font-weight: 600; flex-shrink: 0; }
+  .info-row .val { font-size: 13px; font-weight: 700; color: var(--teal-dark); text-align: right; word-break: break-all; }
+  .info-row .val.mono { font-family: monospace; font-size: 14px; letter-spacing: 0.5px; }
+  .note-box {
+    background: #fefce8;
+    border: 1px solid #fde047;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 12.5px;
+    color: #854d0e;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .note-box svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+  .btn-back {
+    background: var(--gray-100);
+    color: var(--gray-600);
+    border-radius: 10px;
+    padding: 11px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    width: 100%;
+    transition: background 0.2s;
+  }
+  .btn-back:hover { background: var(--gray-200); }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  /* SYARAT */
+  .syarat-list {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .syarat-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+  .syarat-icon {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--teal-light);
+    color: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .syarat-icon svg { width: 13px; height: 13px; }
+
+  @media (max-width: 480px) {
+    .hero { padding: 24px 16px 56px; }
+    .hero h2 { font-size: 20px; }
+    .card-header, .card-body { padding: 18px 18px; }
+    .step-label { font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-icon">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/>
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+    </svg>
+  </div>
+  <div class="topbar-text">
+    <h1>Sistem Aktivasi Sekolah</h1>
+    <p>Portal Pendaftaran Resmi</p>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-badge">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+    </svg>
+    Pendaftaran Resmi
+  </div>
+  <h2>Daftarkan Sekolah Anda</h2>
+  <p>Isi formulir di bawah untuk mendapatkan kode aktivasi dan akses ke sistem</p>
+</div>
+
+<div class="card-wrap">
+  <div class="card">
+    <div class="card-header">
+      <h3>Formulir Pendaftaran</h3>
+      <p>Lengkapi data sekolah Anda dengan benar</p>
+    </div>
+    <div class="card-body">
+
+      <!-- STEPS -->
+      <div class="steps">
+        <div class="step active" id="step1">
+          <div class="step-num">1</div>
+          <div class="step-label">Data Sekolah</div>
+        </div>
+        <div class="step" id="step2">
+          <div class="step-num">2</div>
+          <div class="step-label">Konfirmasi</div>
+        </div>
+        <div class="step" id="step3">
+          <div class="step-num" style="font-size:11px;">✓</div>
+          <div class="step-label">Selesai</div>
+        </div>
+      </div>
+
+      <!-- SECTION 1: FORM -->
+      <div class="form-section active" id="sec1">
+        <div class="syarat-list">
+          <div class="syarat-item">
+            <div class="syarat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+            <span>Pastikan NPSN sekolah Anda benar sesuai data Dapodik</span>
+          </div>
+          <div class="syarat-item">
+            <div class="syarat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+            <span>Nomor WhatsApp aktif untuk menerima kode aktivasi</span>
+          </div>
+          <div class="syarat-item">
+            <div class="syarat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+            <span>Kode aktivasi hanya bisa digunakan di satu perangkat</span>
+          </div>
+        </div>
+
+        <div id="alertError" class="alert alert-error" style="display:none;">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span id="alertMsg"></span>
+        </div>
+
+        <div class="field">
+          <label>NPSN <span>*</span></label>
+          <div class="input-wrap">
+            <span class="input-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/></svg></span>
+            <input type="text" id="npsn" placeholder="Contoh: 20507890" maxlength="12" inputmode="numeric">
+          </div>
+          <div class="helper">Nomor Pokok Sekolah Nasional (8 digit)</div>
+          <div class="err-msg">NPSN wajib diisi</div>
+        </div>
+
+        <div class="field">
+          <label>Nama Sekolah <span>*</span></label>
+          <div class="input-wrap">
+            <span class="input-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></span>
+            <input type="text" id="sekolah" placeholder="Contoh: SD Negeri 1 Mataram">
+          </div>
+          <div class="err-msg">Nama sekolah wajib diisi</div>
+        </div>
+
+        <div class="field">
+          <label>Nomor WhatsApp <span>*</span></label>
+          <div class="input-wrap">
+            <span class="input-icon"><svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--gray-400)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
+            <input type="tel" id="wa" placeholder="Contoh: 08123456789" inputmode="numeric">
+          </div>
+          <div class="helper">Nomor aktif yang bisa dihubungi via WhatsApp</div>
+          <div class="err-msg">Nomor WhatsApp wajib diisi</div>
+        </div>
+
+        <button class="btn btn-primary" id="btnLanjut" onclick="goToConfirm()">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+          </svg>
+          Lanjut ke Konfirmasi
+        </button>
+      </div>
+
+      <!-- SECTION 2: KONFIRMASI -->
+      <div class="form-section" id="sec2">
+        <div class="alert alert-info" style="margin-bottom:18px;">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>Periksa kembali data Anda sebelum mengirim. Data tidak bisa diubah setelah dikirim.</span>
+        </div>
+
+        <div class="info-card">
+          <div class="info-label">Ringkasan Data</div>
+          <div class="info-row">
+            <span class="key">NPSN</span>
+            <span class="val mono" id="konfNpsn">—</span>
+          </div>
+          <div class="info-row">
+            <span class="key">Nama Sekolah</span>
+            <span class="val" id="konfSekolah">—</span>
+          </div>
+          <div class="info-row">
+            <span class="key">No. WhatsApp</span>
+            <span class="val" id="konfWa">—</span>
+          </div>
+        </div>
+
+        <div id="alertError2" class="alert alert-error" style="display:none;">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span id="alertMsg2"></span>
+        </div>
+
+        <button class="btn btn-primary" id="btnKirim" onclick="kirimData()">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+          </svg>
+          Kirim Pendaftaran
+        </button>
+        <button class="btn-back" style="margin-top:10px;" onclick="backToForm()">← Kembali & Edit Data</button>
+      </div>
+
+      <!-- SECTION 3: SUKSES -->
+      <div class="form-section" id="sec3">
+        <div class="success-box">
+          <div class="success-circle">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h3>Pendaftaran Berhasil!</h3>
+          <p class="sub">Data sekolah Anda telah dikirim. Kode aktivasi akan segera dikirimkan melalui WhatsApp oleh administrator.</p>
+
+          <div class="info-card">
+            <div class="info-label">Data yang Didaftarkan</div>
+            <div class="info-row">
+              <span class="key">NPSN</span>
+              <span class="val mono" id="sukNpsn">—</span>
+            </div>
+            <div class="info-row">
+              <span class="key">Nama Sekolah</span>
+              <span class="val" id="sukSekolah">—</span>
+            </div>
+            <div class="info-row">
+              <span class="key">No. WhatsApp</span>
+              <span class="val" id="sukWa">—</span>
+            </div>
+          </div>
+
+          <div class="note-box">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+            <span>Harap pastikan WhatsApp <strong id="sukWaNote">Anda</strong> dalam kondisi aktif. Kode aktivasi biasanya dikirim dalam 1x24 jam.</span>
+          </div>
+
+          <button class="btn btn-primary" onclick="daftarLagi()">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+            </svg>
+            Daftarkan Sekolah Lain
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  &copy; 2025 Sistem Aktivasi Sekolah &mdash; Semua data terenkripsi
+</div>
+
+<script>
+  // ===== KONFIGURASI =====
+  const GAS_URL = "https://script.google.com/macros/s/AKfycby_zMaxKFBJSG4n7HCeKXOxyojqhqzOUYnnPmUlmBR6zav-PZz_K3Lis_axToqIoalcbw/exec";
+
+  // ===== NAVIGASI STEP =====
+  function setStep(n) {
+    [1,2,3].forEach(i => {
+      const el = document.getElementById('step' + i);
+      el.className = 'step' + (i < n ? ' done' : i === n ? ' active' : '');
+    });
+    [1,2,3].forEach(i => {
+      const sec = document.getElementById('sec' + i);
+      sec.className = 'form-section' + (i === n ? ' active' : '');
+    });
+  }
+
+  // ===== VALIDASI & LANJUT =====
+  function goToConfirm() {
+    const npsn = document.getElementById('npsn').value.trim();
+    const sekolah = document.getElementById('sekolah').value.trim();
+    const wa = document.getElementById('wa').value.trim();
+
+    let ok = true;
+    if (!npsn) { document.getElementById('npsn').classList.add('error'); ok = false; } else { document.getElementById('npsn').classList.remove('error'); }
+    if (!sekolah) { document.getElementById('sekolah').classList.add('error'); ok = false; } else { document.getElementById('sekolah').classList.remove('error'); }
+    if (!wa) { document.getElementById('wa').classList.add('error'); ok = false; } else { document.getElementById('wa').classList.remove('error'); }
+
+    if (!ok) return;
+
+    document.getElementById('konfNpsn').textContent = npsn;
+    document.getElementById('konfSekolah').textContent = sekolah;
+    document.getElementById('konfWa').textContent = wa;
+    document.getElementById('alertError').style.display = 'none';
+    setStep(2);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function backToForm() {
+    setStep(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ===== KIRIM DATA =====
+  async function kirimData() {
+    const npsn = document.getElementById('npsn').value.trim();
+    const sekolah = document.getElementById('sekolah').value.trim();
+    const wa = document.getElementById('wa').value.trim();
+
+    const btn = document.getElementById('btnKirim');
+    btn.disabled = true;
+    btn.classList.add('loading');
+    btn.innerHTML = `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Mengirim...`;
+
+    document.getElementById('alertError2').style.display = 'none';
+
+    try {
+      const res = await fetch(GAS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ action: 'register', npsn, sekolah, wa })
+      });
+      const json = await res.json();
+
+      if (json.status === 'success') {
+        document.getElementById('sukNpsn').textContent = npsn;
+        document.getElementById('sukSekolah').textContent = sekolah;
+        document.getElementById('sukWa').textContent = wa;
+        document.getElementById('sukWaNote').textContent = wa;
+        setStep(3);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        showErr2(json.message || 'Terjadi kesalahan, coba lagi.');
+      }
+    } catch (e) {
+      showErr2('Gagal terhubung ke server. Periksa koneksi internet Anda.');
+    }
+
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    btn.innerHTML = `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg> Kirim Pendaftaran`;
+  }
+
+  function showErr2(msg) {
+    const el = document.getElementById('alertError2');
+    document.getElementById('alertMsg2').textContent = msg;
+    el.style.display = 'flex';
+  }
+
+  // ===== DAFTAR LAGI =====
+  function daftarLagi() {
+    ['npsn','sekolah','wa'].forEach(id => {
+      document.getElementById(id).value = '';
+      document.getElementById(id).classList.remove('error');
+    });
+    setStep(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
