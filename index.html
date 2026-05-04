@@ -350,11 +350,166 @@
   }
   .syarat-icon svg { width: 13px; height: 13px; }
 
+  /* PAKET SELECTOR */
+  .paket-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .paket-card {
+    border: 2px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 13px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    background: var(--gray-50);
+  }
+  .paket-card:hover { border-color: var(--teal-light); background: var(--teal-pale); }
+  .paket-card.selected { border-color: var(--teal); background: var(--teal-pale); box-shadow: 0 0 0 3px rgba(13,148,136,0.12); }
+  .paket-card input[type=radio] { display: none; }
+  .paket-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  .paket-nama {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 700; color: var(--gray-900);
+  }
+  .paket-emoji { font-size: 16px; }
+  .paket-harga {
+    font-size: 13px; font-weight: 700;
+    padding: 2px 10px; border-radius: 20px;
+  }
+  .paket-harga.mini  { background: #dbeafe; color: #1d4ed8; }
+  .paket-harga.kombo { background: #d1fae5; color: #065f46; }
+  .paket-harga.ekstra { background: #fef9c3; color: #92400e; }
+  .paket-fitur {
+    font-size: 12px; color: var(--gray-500); line-height: 1.5;
+  }
+  .paket-card.selected .paket-fitur { color: var(--teal-dark); }
+  .paket-check {
+    position: absolute; top: 12px; right: 12px;
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 2px solid var(--gray-300);
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .paket-card.selected .paket-check {
+    background: var(--teal); border-color: var(--teal);
+  }
+  .paket-check-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: white; opacity: 0; transition: opacity 0.2s;
+  }
+  .paket-card.selected .paket-check-dot { opacity: 1; }
+  .field input.error-paket { /* marker class if paket not selected */ }
+
+  /* REKENING TRANSFER */
+  .rekening-box {
+    background: #f0fdf4;
+    border: 1.5px solid #86efac;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .rekening-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.4px; color: #166534; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .rekening-bank {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+  }
+  .bank-logo {
+    width: 38px; height: 38px; border-radius: 8px;
+    background: linear-gradient(135deg, #16a34a, #065f46);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; color: white; flex-shrink: 0;
+    letter-spacing: -0.5px;
+  }
+  .bank-info .bank-nama { font-size: 13px; font-weight: 700; color: #166534; }
+  .bank-info .bank-kode { font-size: 11px; color: #4ade80; font-weight: 600; }
+  .rekening-nomor-wrap {
+    display: flex; align-items: center;
+    background: white; border: 1.5px solid #86efac;
+    border-radius: 10px; padding: 10px 12px; gap: 10px;
+  }
+  .rekening-nomor {
+    font-family: monospace; font-size: 17px; font-weight: 800;
+    color: #166534; letter-spacing: 1.5px; flex: 1;
+  }
+  .btn-salin {
+    background: #16a34a; color: white; border: none;
+    padding: 6px 14px; border-radius: 8px; cursor: pointer;
+    font-size: 12px; font-weight: 700; font-family: inherit;
+    display: flex; align-items: center; gap: 5px;
+    transition: all 0.2s; flex-shrink: 0;
+  }
+  .btn-salin:hover { background: #15803d; }
+  .btn-salin.copied { background: #0891b2; }
+  .btn-salin svg { width: 14px; height: 14px; }
+
+  /* UPLOAD BUKTI TRANSFER */
+  .upload-box {
+    border: 2px dashed var(--gray-300);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--gray-50);
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .upload-box:hover { border-color: var(--teal); background: var(--teal-pale); }
+  .upload-box.has-file { border-color: var(--green); border-style: solid; background: var(--green-light); }
+  .upload-box input[type=file] { display: none; }
+  .upload-icon { margin-bottom: 8px; }
+  .upload-icon svg { width: 32px; height: 32px; color: var(--gray-400); }
+  .upload-box.has-file .upload-icon svg { color: var(--green); }
+  .upload-text { font-size: 13px; font-weight: 600; color: var(--gray-500); }
+  .upload-box.has-file .upload-text { color: var(--green); }
+  .upload-sub { font-size: 11.5px; color: var(--gray-400); margin-top: 3px; }
+  .upload-box.error-upload { border-color: var(--red); background: var(--red-light); }
+
+  /* PREVIEW GAMBAR */
+  .preview-wrap {
+    display: none;
+    border: 2px solid var(--green);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    position: relative;
+    background: #000;
+  }
+  .preview-wrap img {
+    width: 100%; max-height: 280px;
+    object-fit: contain; display: block;
+  }
+  .preview-top-bar {
+    position: absolute; top: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.55);
+    padding: 6px 10px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .preview-filename { font-size: 11px; color: white; font-weight: 600; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .btn-hapus-foto {
+    background: #ef4444; color: white; border: none;
+    padding: 3px 10px; border-radius: 6px; cursor: pointer;
+    font-size: 11px; font-weight: 700; font-family: inherit;
+  }
+
   @media (max-width: 480px) {
     .hero { padding: 24px 16px 56px; }
     .hero h2 { font-size: 20px; }
     .card-header, .card-body { padding: 18px 18px; }
     .step-label { font-size: 10px; }
+    .rekening-nomor { font-size: 14px; }
   }
 </style>
 </head>
@@ -461,6 +616,42 @@
           <div class="err-msg">Nomor WhatsApp wajib diisi</div>
         </div>
 
+        <div class="field">
+          <label>Pilih Paket <span>*</span></label>
+          <div id="paketError" style="display:none;font-size:12px;color:var(--red);margin-bottom:8px;">⚠️ Pilih paket terlebih dahulu</div>
+          <div class="paket-grid">
+            <label class="paket-card" id="card-mini" onclick="pilihPaket('mini')">
+              <input type="radio" name="paket" value="mini">
+              <div class="paket-card-top">
+                <div class="paket-nama"><span class="paket-emoji">🧩</span> Paket Mini</div>
+                <span class="paket-harga mini">Rp 50.000</span>
+              </div>
+              <div class="paket-fitur">✔ Cetak SKL &nbsp;·&nbsp; ✔ Laporan Kilat &nbsp;·&nbsp; ✔ Ranking</div>
+              <div class="paket-check"><div class="paket-check-dot"></div></div>
+            </label>
+
+            <label class="paket-card" id="card-kombo" onclick="pilihPaket('kombo')">
+              <input type="radio" name="paket" value="kombo">
+              <div class="paket-card-top">
+                <div class="paket-nama"><span class="paket-emoji">⭐</span> Paket Kombo</div>
+                <span class="paket-harga kombo">Rp 75.000</span>
+              </div>
+              <div class="paket-fitur">✔ Semua Mini &nbsp;·&nbsp; ✔ Piagam &nbsp;·&nbsp; ✔ Kartu Buku Siswa</div>
+              <div class="paket-check"><div class="paket-check-dot"></div></div>
+            </label>
+
+            <label class="paket-card" id="card-ekstra" onclick="pilihPaket('ekstra')">
+              <input type="radio" name="paket" value="ekstra">
+              <div class="paket-card-top">
+                <div class="paket-nama"><span class="paket-emoji">🚀</span> Paket Ekstra</div>
+                <span class="paket-harga ekstra">Rp 100.000</span>
+              </div>
+              <div class="paket-fitur">✔ Semua Fitur Tanpa Terkecuali (Surat, SK, Rekap, dll)</div>
+              <div class="paket-check"><div class="paket-check-dot"></div></div>
+            </label>
+          </div>
+        </div>
+
         <button class="btn btn-primary" id="btnLanjut" onclick="goToConfirm()">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
@@ -491,6 +682,59 @@
           <div class="info-row">
             <span class="key">No. WhatsApp</span>
             <span class="val" id="konfWa">—</span>
+          </div>
+          <div class="info-row">
+            <span class="key">Paket</span>
+            <span class="val" id="konfPaket">—</span>
+          </div>
+        </div>
+
+        <!-- INFORMASI REKENING -->
+        <div class="rekening-box">
+          <div class="rekening-label">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            Pembayaran via Transfer Bank
+          </div>
+          <div class="rekening-bank">
+            <div class="bank-logo">NTB</div>
+            <div class="bank-info">
+              <div class="bank-nama">Bank NTB Syariah</div>
+              <div class="bank-kode">Kode Transfer: 128</div>
+            </div>
+          </div>
+          <div style="font-size:12px;color:#166534;margin-bottom:8px;font-weight:600">Nomor Rekening:</div>
+          <div class="rekening-nomor-wrap">
+            <span class="rekening-nomor" id="noRekening">0012222085106</span>
+            <button class="btn-salin" id="btnSalin" onclick="salinRekening()">
+              <svg id="iconSalin" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span id="txtSalin">Salin</span>
+            </button>
+          </div>
+          <div style="font-size:11.5px;color:#4ade80;margin-top:8px">⚠️ Kirim sesuai nominal paket. Tambahkan 3 digit unik jika perlu (contoh: +001)</div>
+        </div>
+
+        <!-- UPLOAD BUKTI TRANSFER -->
+        <div class="field">
+          <label>Bukti Transfer <span>*</span></label>
+          <div id="uploadErrorMsg" style="display:none;font-size:12px;color:var(--red);margin-bottom:8px;">⚠️ Upload bukti transfer terlebih dahulu</div>
+
+          <!-- Preview gambar -->
+          <div class="preview-wrap" id="previewWrap">
+            <div class="preview-top-bar">
+              <span class="preview-filename" id="previewFilename"></span>
+              <button class="btn-hapus-foto" onclick="hapusFoto()">✕ Hapus</button>
+            </div>
+            <img id="previewImg" src="" alt="Bukti Transfer">
+          </div>
+
+          <!-- Dropzone upload -->
+          <div class="upload-box" id="uploadBox" onclick="document.getElementById('inputFoto').click()">
+            <input type="file" id="inputFoto" accept="image/*" onchange="handleUpload(event)">
+            <div class="upload-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <div class="upload-text" id="uploadText">Klik untuk pilih foto bukti transfer</div>
+            <div class="upload-sub">JPG, PNG, WEBP — Maks. 5 MB</div>
           </div>
         </div>
 
@@ -535,6 +779,10 @@
               <span class="key">No. WhatsApp</span>
               <span class="val" id="sukWa">—</span>
             </div>
+            <div class="info-row">
+              <span class="key">Paket</span>
+              <span class="val" id="sukPaket">—</span>
+            </div>
           </div>
 
           <div class="note-box">
@@ -565,6 +813,20 @@
   // ===== KONFIGURASI =====
   const GAS_URL = "https://script.google.com/macros/s/AKfycby_zMaxKFBJSG4n7HCeKXOxyojqhqzOUYnnPmUlmBR6zav-PZz_K3Lis_axToqIoalcbw/exec";
 
+  // ===== PAKET =====
+  let selectedPaket = '';
+  const PAKET_LABEL = { mini: '🧩 Paket Mini (Rp 50.000)', kombo: '⭐ Paket Kombo (Rp 75.000)', ekstra: '🚀 Paket Ekstra (Rp 100.000)' };
+
+  function pilihPaket(paket) {
+    selectedPaket = paket;
+    ['mini','kombo','ekstra'].forEach(p => {
+      const card = document.getElementById('card-' + p);
+      if (p === paket) card.classList.add('selected');
+      else card.classList.remove('selected');
+    });
+    document.getElementById('paketError').style.display = 'none';
+  }
+
   // ===== NAVIGASI STEP =====
   function setStep(n) {
     [1,2,3].forEach(i => {
@@ -588,11 +850,19 @@
     if (!sekolah) { document.getElementById('sekolah').classList.add('error'); ok = false; } else { document.getElementById('sekolah').classList.remove('error'); }
     if (!wa) { document.getElementById('wa').classList.add('error'); ok = false; } else { document.getElementById('wa').classList.remove('error'); }
 
+    if (!selectedPaket) {
+      document.getElementById('paketError').style.display = 'block';
+      ok = false;
+    } else {
+      document.getElementById('paketError').style.display = 'none';
+    }
+
     if (!ok) return;
 
     document.getElementById('konfNpsn').textContent = npsn;
     document.getElementById('konfSekolah').textContent = sekolah;
     document.getElementById('konfWa').textContent = wa;
+    document.getElementById('konfPaket').textContent = PAKET_LABEL[selectedPaket] || selectedPaket;
     document.getElementById('alertError').style.display = 'none';
     setStep(2);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -609,6 +879,15 @@
     const sekolah = document.getElementById('sekolah').value.trim();
     const wa = document.getElementById('wa').value.trim();
 
+    // Validasi bukti transfer
+    if (!fotoBase64) {
+      document.getElementById('uploadErrorMsg').style.display = 'block';
+      document.getElementById('uploadBox').classList.add('error-upload');
+      return;
+    }
+    document.getElementById('uploadErrorMsg').style.display = 'none';
+    document.getElementById('uploadBox').classList.remove('error-upload');
+
     const btn = document.getElementById('btnKirim');
     btn.disabled = true;
     btn.classList.add('loading');
@@ -620,7 +899,7 @@
       const res = await fetch(GAS_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ action: 'register', npsn, sekolah, wa })
+        body: JSON.stringify({ action: 'register', npsn, sekolah, wa, paket: selectedPaket, bukti_transfer: fotoBase64 })
       });
       const json = await res.json();
 
@@ -629,6 +908,7 @@
         document.getElementById('sukSekolah').textContent = sekolah;
         document.getElementById('sukWa').textContent = wa;
         document.getElementById('sukWaNote').textContent = wa;
+        document.getElementById('sukPaket').textContent = PAKET_LABEL[selectedPaket] || selectedPaket;
         setStep(3);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
@@ -643,6 +923,62 @@
     btn.innerHTML = `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg> Kirim Pendaftaran`;
   }
 
+  // ===== SALIN REKENING =====
+  function salinRekening() {
+    const no = document.getElementById('noRekening').textContent;
+    navigator.clipboard.writeText(no).then(() => {
+      const btn = document.getElementById('btnSalin');
+      const txt = document.getElementById('txtSalin');
+      const ico = document.getElementById('iconSalin');
+      btn.classList.add('copied');
+      txt.textContent = 'Tersalin!';
+      ico.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        txt.textContent = 'Salin';
+        ico.innerHTML = '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>';
+      }, 2000);
+    });
+  }
+
+  // ===== UPLOAD & PREVIEW FOTO =====
+  let fotoBase64 = '';
+
+  function handleUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Ukuran file terlalu besar. Maksimal 5 MB.');
+      event.target.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      fotoBase64 = e.target.result;
+      // Tampilkan preview
+      document.getElementById('previewImg').src = fotoBase64;
+      document.getElementById('previewFilename').textContent = file.name;
+      document.getElementById('previewWrap').style.display = 'block';
+      // Update dropzone
+      const box = document.getElementById('uploadBox');
+      box.classList.add('has-file');
+      document.getElementById('uploadText').textContent = '✔ Foto terpilih — klik untuk ganti';
+      document.getElementById('uploadErrorMsg').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function hapusFoto() {
+    fotoBase64 = '';
+    document.getElementById('inputFoto').value = '';
+    document.getElementById('previewImg').src = '';
+    document.getElementById('previewWrap').style.display = 'none';
+    const box = document.getElementById('uploadBox');
+    box.classList.remove('has-file');
+    box.classList.remove('error-upload');
+    document.getElementById('uploadText').textContent = 'Klik untuk pilih foto bukti transfer';
+  }
+
   function showErr2(msg) {
     const el = document.getElementById('alertError2');
     document.getElementById('alertMsg2').textContent = msg;
@@ -655,6 +991,10 @@
       document.getElementById(id).value = '';
       document.getElementById(id).classList.remove('error');
     });
+    selectedPaket = '';
+    ['mini','kombo','ekstra'].forEach(p => document.getElementById('card-' + p).classList.remove('selected'));
+    document.getElementById('paketError').style.display = 'none';
+    hapusFoto();
     setStep(1);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
